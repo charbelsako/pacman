@@ -37,6 +37,11 @@ function setup() {
 		}
 	}
 	
+	for(let i = 0; i < ghosts.length; i++){
+		ghosts[i].findPath(grid, p)
+		resetValues(grid)
+	}
+
 }
 
 function keyPressed(){
@@ -80,6 +85,17 @@ function keyPressed(){
 		p.j = cols - 1
 		p.y -= w		
 	}
+}
+
+function hasPoints(){
+	for(let i = 0; i < 10; i++){
+		for(let j = 0; j < 10; j++){
+			if(grid[i][j].hasCoin){
+				return true
+			}
+		}
+	}
+	return false
 }
 
 function draw() {

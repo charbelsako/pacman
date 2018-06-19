@@ -26,6 +26,10 @@ class Cell{
     show(col){
         if(p.x === this.x && p.y === this.y){
             this.hasCoin = false
+            if(!hasPoints()){
+                console.log('you win')
+                noLoop()
+            }
         }
         if(this.isWall){
             fill(0)

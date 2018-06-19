@@ -72,7 +72,7 @@ class Ghost{
                     this.path.push(temp.previous)
                     temp = temp.previous
                 }
-                
+                return
             }
 
             this.removeFromArray(openSet, current)
@@ -100,6 +100,7 @@ class Ghost{
             }
         }
         //no solution
+        return
     }
 
     move(){      
@@ -108,6 +109,9 @@ class Ghost{
             this.i = nextPos.i
             this.j = nextPos.j
             this.updateLoc()
+        }else{
+            console.log('game over')
+            noLoop()
         }
     }
 
