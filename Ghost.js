@@ -77,7 +77,8 @@ class Ghost{
                 return
             }
 
-            this.removeFromArray(openSet, current)
+            // this.removeFromArray(openSet, current) // isn't it possible to just splice based on the index variable
+            openSet.splice(index, 1)
             closedSet.push(current)
 
             let neighbors = current.neighbors
@@ -107,7 +108,7 @@ class Ghost{
     }
 
     move(){      
-        if(this.path.length > 0 ){  
+        if(this.path.length > 0){  
             let nextPos = this.path.pop()
             this.i = nextPos.i
             this.j = nextPos.j

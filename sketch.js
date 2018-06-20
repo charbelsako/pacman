@@ -45,6 +45,7 @@ function setup() {
 }
 
 function keyPressed(){
+	
 	if(keyCode === UP_ARROW){
 		if(p.j > 0 && !grid[p.i][p.j - 1].isWall){
 			p.j--
@@ -113,7 +114,7 @@ function draw() {
 		ghosts[i].show()		
 	}	
 
-	if(frameCount % 180 === 0){
+	if(frameCount % 60 === 0){
 		for(let i = 0; i < ghosts.length; i++){
 			ghosts[i].findPath(grid, p)
 			resetValues(grid)
@@ -131,10 +132,10 @@ function draw() {
 
 	if(frameCount % 30 === 0 && frameCount > 0){
 		ghosts[0].move()
-		
 		ghosts[1].move()
 		ghosts[2].move()
 		ghosts[3].move()
 	}
+	
 	
 }
