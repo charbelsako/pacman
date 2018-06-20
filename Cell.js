@@ -64,18 +64,4 @@ class Cell{
         }
     }
 
-    // collision(player){
-    //     // console.log(player)
-    //     if(player.x > this.x && player.x < this.x + w){
-    //         if(player.y > this.y && player.y < this.y + w){
-    //             console.log(p)
-    //             console.log('tile :' + this.x + ',' + this.y)
-    //             this.hasCoin = false
-    //             player.i = this.i
-    //             player.j = this.j
-    //             noLoop();
-    //         }
-    //     }
-    // }
 }
-
