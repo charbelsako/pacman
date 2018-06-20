@@ -62,7 +62,6 @@ class Cell{
         if( j < cols - 1 ){
             this.neighbors.push(grid[i][j+1])
         }
-               
     }
 
     // collision(player){

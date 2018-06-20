@@ -129,8 +129,9 @@ function draw() {
 	// ghosts[3].findPath(grid, p)
 
 
-	if(frameCount % 30 === 0){
+	if(frameCount % 30 === 0 && frameCount > 0){
 		ghosts[0].move()
+		
 		ghosts[1].move()
 		ghosts[2].move()
 		ghosts[3].move()

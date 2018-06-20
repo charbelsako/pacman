@@ -1,5 +1,6 @@
 class Ghost{
     constructor(type){
+        this.pathExists = false
         this.path = []
         this.type = type
         if(this.type === 'pink'){
@@ -66,6 +67,7 @@ class Ghost{
             if(current === end){
                 // console.log('done')
                 //we found the path now move along it.
+                this.pathExists = true
                 let temp = current
                 this.path.push(temp)
                 while(temp.previous){
@@ -99,19 +101,22 @@ class Ghost{
             
             }
         }
+        this.pathExists = false // this isn't really needed unless you want to magically change where the walls are
         //no solution
         return
     }
 
     move(){      
-        if(this.path.length > 0){  
+        if(this.path.length > 0 ){  
             let nextPos = this.path.pop()
             this.i = nextPos.i
             this.j = nextPos.j
             this.updateLoc()
         }else{
-            console.log('game over')
-            noLoop()
+            if(this.pathExists){
+                console.log('game over')
+                noLoop()
+            }
         }
     }
 
