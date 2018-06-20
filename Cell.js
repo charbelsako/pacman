@@ -24,7 +24,7 @@ class Cell{
     }
 
     show(col){
-        if(p.x === this.x && p.y === this.y){
+        if(p.i === this.i && p.j === this.j){
             this.hasCoin = false
             if(!hasPoints()){
                 console.log('you win')

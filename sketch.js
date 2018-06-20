@@ -1,6 +1,6 @@
 const WIDTH = 400 //width of canvas
-const cols = 10
-const rows = 10
+const cols = 15
+const rows = 15
 const w = WIDTH / cols //width of each cell (w is also height)
 let grid = new Array(rows).fill().map(val => Array(cols))
 // let coins = [];
@@ -13,8 +13,8 @@ ghosts.push(new Ghost('green'))
 ghosts.push(new Ghost('grey'))
 
 function resetValues(){
-	for(let i = 0; i < 10; i++){
-		for(let j = 0; j < 10; j++){
+	for(let i = 0; i < rows; i++){
+		for(let j = 0; j < cols; j++){
 			grid[i][j].f = 0
 			grid[i][j].g = 0
 			grid[i][j].h = 0
@@ -45,7 +45,7 @@ function setup() {
 }
 
 function keyPressed(){
-	
+	console.log(frameRate())
 	if(keyCode === UP_ARROW){
 		if(p.j > 0 && !grid[p.i][p.j - 1].isWall){
 			p.j--
@@ -89,8 +89,8 @@ function keyPressed(){
 }
 
 function hasPoints(){
-	for(let i = 0; i < 10; i++){
-		for(let j = 0; j < 10; j++){
+	for(let i = 0; i < rows; i++){
+		for(let j = 0; j < cols; j++){
 			if(grid[i][j].hasCoin){
 				return true
 			}
