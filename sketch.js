@@ -12,7 +12,7 @@ ghosts.push(new Ghost('blue'))
 ghosts.push(new Ghost('green'))
 ghosts.push(new Ghost('grey'))
 
-function resetValues(g){
+function resetValues(){
 	for(let i = 0; i < 10; i++){
 		for(let j = 0; j < 10; j++){
 			grid[i][j].f = 0
@@ -39,7 +39,7 @@ function setup() {
 	
 	for(let i = 0; i < ghosts.length; i++){
 		ghosts[i].findPath(grid, p)
-		resetValues(grid)
+		resetValues()
 	}
 
 }
@@ -112,25 +112,18 @@ function draw() {
 
 	for(let i = 0; i < ghosts.length; i++){
 		ghosts[i].show()		
+		ghosts[i].collision(p)
 	}	
 
 	if(frameCount % 60 === 0){
 		for(let i = 0; i < ghosts.length; i++){
 			ghosts[i].findPath(grid, p)
-			resetValues(grid)
+			resetValues()
 		}
 	}
 
-	// ghosts[0].findPath(grid, p)
-	// resetValues(grid)
-	// ghosts[1].findPath(grid, p)
-	// resetValues(grid)
-	// ghosts[2].findPath(grid, p)
-	// resetValues(grid)
-	// ghosts[3].findPath(grid, p)
-
-
 	if(frameCount % 30 === 0 && frameCount > 0){
+		// These aren't in a loop because i actually want each one to have their own speed.
 		ghosts[0].move()
 		ghosts[1].move()
 		ghosts[2].move()

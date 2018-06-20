@@ -1,0 +1,43 @@
+if(frameCount % 30 === 0){
+		if(keyIsDown(UP_ARROW)){
+			if(p.j > 0 && !grid[p.i][p.j - 1].isWall){
+				p.j--
+				p.y -= w
+			}
+		}
+		if(keyIsDown(DOWN_ARROW)){
+			if(p.j < cols - 1 && !grid[p.i][p.j + 1].isWall){
+				p.j++
+				p.y += w
+			}
+		}
+		if(keyIsDown(LEFT_ARROW)){
+			if(p.i > 0 && !grid[p.i - 1][p.j].isWall){
+				p.i--
+				p.x -= w
+			}
+		}
+		if(keyIsDown(RIGHT_ARROW)){
+			if(p.i < rows - 1 && !grid[p.i + 1][p.j].isWall){
+				p.i++
+				p.x += w
+			}
+		}
+	}
+
+	if(p.i < 0 ){
+		p.i = 0
+		p.x += w
+	}
+	if(p.j < 0){
+		p.j = 0
+		p.y += w
+	}
+	if(p.i > rows - 1){
+		p.i = rows - 1
+		p.x -= w		
+	}
+	if(p.j > cols - 1){
+		p.j = cols - 1
+		p.y -= w		
+	}

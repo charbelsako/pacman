@@ -107,6 +107,13 @@ class Ghost{
         return
     }
 
+    collision(p){
+        if(p.x === this.x && p.y === this.y){
+            console.log('death by collision')
+            noLoop()
+        }
+    }
+
     move(){      
         if(this.path.length > 0){  
             let nextPos = this.path.pop()
@@ -115,7 +122,7 @@ class Ghost{
             this.updateLoc()
         }else{
             if(this.pathExists){
-                console.log('game over')
+                console.log('death by ghost reaching you')
                 noLoop()
             }
         }
