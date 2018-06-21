@@ -73,22 +73,34 @@ function draw() {
 		ghosts[i].collision(p)
 	}
 
-	if (frameCount % 60 === 0) {
+	if (frameCount % 30 === 0) {
 		for (let i = 0; i < ghosts.length; i++) {
 			ghosts[i].findPath(grid, p)
 			resetValues()
 		}
 	}
 
-	if (frameCount % 30 === 0 && frameCount > 0) {
-		// These aren't in a loop because i actually want each one to have their own speed.
-		ghosts[0].move()
-		ghosts[1].move()
-		ghosts[2].move()
-		ghosts[3].move()
+	//Initializing the ghosts speeds
+	if (frameCount > 0) {
+		if (frameCount % 20 === 0) {
+			ghosts[0].move()
+		}
+
+		if (frameCount % 15 === 0) {
+			ghosts[1].move()
+		}
+
+		if (frameCount % 25 === 0) {
+			ghosts[3].move()
+		}
+
+		if (frameCount % 20 === 0) {
+			ghosts[2].move()
+		}
 	}
 
-	if (frameCount % 30 === 0) {
+	//The Players speed. 3 moves per second
+	if (frameCount % 5 === 0) {
 		if (keyIsDown(UP_ARROW)) {
 			p.dir == 'UP'
 			if (p.j > 0 && !grid[p.i][p.j - 1].isWall) {
@@ -111,7 +123,7 @@ function draw() {
 			}
 		}
 		if (keyIsDown(RIGHT_ARROW)) {
-			p.dir == 'RIGHT'			
+			p.dir == 'RIGHT'
 			if (p.i < rows - 1 && !grid[p.i + 1][p.j].isWall) {
 				p.i++
 					p.x += w
@@ -135,6 +147,6 @@ function draw() {
 		}
 	}
 
-	
+
 
 }
