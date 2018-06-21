@@ -90,25 +90,28 @@ function draw() {
 
 	if (frameCount % 30 === 0) {
 		if (keyIsDown(UP_ARROW)) {
-
+			p.dir == 'UP'
 			if (p.j > 0 && !grid[p.i][p.j - 1].isWall) {
 				p.j--
 					p.y -= w
 			}
 		}
 		if (keyIsDown(DOWN_ARROW)) {
+			p.dir == 'DOWN'
 			if (p.j < cols - 1 && !grid[p.i][p.j + 1].isWall) {
 				p.j++
 					p.y += w
 			}
 		}
 		if (keyIsDown(LEFT_ARROW)) {
+			p.dir == 'LEFT'
 			if (p.i > 0 && !grid[p.i - 1][p.j].isWall) {
 				p.i--
 					p.x -= w
 			}
 		}
 		if (keyIsDown(RIGHT_ARROW)) {
+			p.dir == 'RIGHT'			
 			if (p.i < rows - 1 && !grid[p.i + 1][p.j].isWall) {
 				p.i++
 					p.x += w

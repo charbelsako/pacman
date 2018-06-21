@@ -4,6 +4,7 @@ class Player {
         this.j = cols - 1
         this.x = this.i * w;
         this.y = this.j * w;
+        this.dir = undefined
     }
 
     show(){
