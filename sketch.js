@@ -99,7 +99,7 @@ function draw() {
 	}
 
 	//The Players speed. 3 moves per second
-	if (frameCount % 5 === 0) {
+	if (frameCount % 10 === 0) {
 		if (keyIsDown(UP_ARROW)) {
 			p.dir == 'UP'
 			if (p.j > 0 && !grid[p.i][p.j - 1].isWall) {

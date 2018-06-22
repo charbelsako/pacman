@@ -24,13 +24,17 @@ class Cell{
             this.hasCoin = true
             this.isWall = false
         }
+
+        if( this.i === rows - 1 && this.j === cols - 1 || this.i === 0 && this.j === 0 
+            || this.i === rows - 1 && this.j === 0 || this.i === 0 && this.j === cols - 1 ){
+                this.special = true
+        }
     }
 
     show(col){
         if(p.i === this.i && p.j === this.j){
             if(this.special){
-                console.log('player got a blue coin')
-                Ghost.scared()
+                ghosts.map(ghost => ghost.scared())
             }
             this.special = false
             this.hasCoin = false
