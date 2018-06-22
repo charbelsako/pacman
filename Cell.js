@@ -22,7 +22,6 @@ class Cell{
             || this.i === Math.floor(rows / 2) && this.j === cols - 1){
 
             this.hasCoin = true
-            this.special = true
             this.isWall = false
         }
     }
@@ -30,6 +29,7 @@ class Cell{
     show(col){
         if(p.i === this.i && p.j === this.j){
             if(this.special){
+                console.log('player got a blue coin')
                 Ghost.scared()
             }
             this.special = false

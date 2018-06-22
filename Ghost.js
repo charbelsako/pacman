@@ -24,7 +24,6 @@ class Ghost{
 
     static scared(){
         this.mode = 'SCARED'
-        console.log(this.mode)
     }
 
     // Deprecated Function. 
@@ -37,6 +36,8 @@ class Ghost{
     }
     
     show(){
+
+        
         if(this.type === 'grey'){
             fill(120)                        
         }else if(this.type === 'pink'){
@@ -59,7 +60,19 @@ class Ghost{
         let closedSet = []
         let openSet = []       
         let start = grid[this.i][this.j]
-        let end = grid[player.i][player.j]
+        let end;
+
+        this.changeMode()
+
+        if(this.mode === 'IDLE'){
+            
+            end = grid[this.i][this.j] // The end is his current location
+        }else if(this.mode === 'HUNTING'){
+            end = grid[player.i][player.j]
+        }else if(this.mode === 'scared'){
+            end = grid[player.i][player.j]
+        }
+        
         
         openSet.push(start)
 
@@ -72,7 +85,6 @@ class Ghost{
             }
             let current = openSet[index]
             if(current === end){
-                // console.log('done')
                 //we found the path now move along it.
                 this.pathExists = true
                 let temp = current
@@ -84,7 +96,8 @@ class Ghost{
                 return
             }
 
-            // this.removeFromArray(openSet, current) // isn't it possible to just splice based on the index variable
+            // this.removeFromArray(openSet, current) 
+            // isn't it possible to just splice based on the index variable
             openSet.splice(index, 1)
             closedSet.push(current)
 
@@ -109,8 +122,8 @@ class Ghost{
             
             }
         }
+        //no solution. 
         this.pathExists = false // this isn't really needed unless you want to magically change where the walls are
-        //no solution
         return
     }
 
@@ -128,7 +141,7 @@ class Ghost{
             this.j = nextPos.j
             this.updateLoc()
         }else{
-            if(this.pathExists){
+            if(this.pathExists && this.mode === 'HUNTING'){
                 console.log('death by ghost reaching you')
                 noLoop()
             }
@@ -138,6 +151,18 @@ class Ghost{
     updateLoc(){
         this.x = this.i * w
         this.y = this.j * w
+    }
+
+    changeMode(){
+        //When the game starts ghosts are IDLE for 2 seconds
+        if(this.mode === 'IDLE' && frameCount > 120){
+            this.mode = 'HUNTING'
+        }
+    
+        //Ghosts get scared for four seconds
+        if(this.mode === 'SCARED' && frameCount % (60 * 4) === 0){
+            this.mode = 'HUNTING'
+        }
     }
     
 }
