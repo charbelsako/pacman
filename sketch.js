@@ -3,7 +3,6 @@ const cols = 15
 const rows = 15
 const w = WIDTH / cols //width of each cell (w is also height)
 let grid = new Array(rows).fill().map(val => Array(cols))
-// let coins = [];
 let p = new Player();
 
 let ghosts = []

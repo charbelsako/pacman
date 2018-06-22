@@ -13,18 +13,26 @@ class Cell{
         this.j = j
         this.neighbors = []
         this.isWall = (random(1) > 0.8);
+
         this.hasCoin = (!this.isWall)? true : false
+        this.special = false
+
         if( this.i === rows - 1 && this.j === cols - 1 || this.i === 0 && this.j === 0 
             || this.i === rows - 1 && this.j === 0 || this.i === 0 && this.j === cols - 1 
             || this.i === Math.floor(rows / 2) && this.j === cols - 1){
 
-            this.hasCoin = false
+            this.hasCoin = true
+            this.special = true
             this.isWall = false
         }
     }
 
     show(col){
         if(p.i === this.i && p.j === this.j){
+            if(this.special){
+                Ghost.scared()
+            }
+            this.special = false
             this.hasCoin = false
             if(!hasPoints()){
                 console.log('you win')
@@ -41,8 +49,12 @@ class Cell{
         }
         stroke(0)
         rect(this.x, this.y, w - 1, w - 1)
-        if(this.hasCoin){
+        if(!this.special){
             fill(255,255,0)
+        }else{
+            fill(50,0,255)
+        }
+        if(this.hasCoin){
             ellipse(this.x + w/2, this.y + w/2, w/3);
         }
     }

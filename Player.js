@@ -15,6 +15,5 @@ class Player {
     scale(){
         this.i = Math.round(this.x / w)
         this.j = Math.round(this.y / w)
-        // console.log(p)
     }
 }

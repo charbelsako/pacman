@@ -1,5 +1,6 @@
 class Ghost{
     constructor(type){
+        this.mode = 'IDLE'
         this.pathExists = false
         this.path = []
         this.type = type
@@ -21,6 +22,12 @@ class Ghost{
 
     }
 
+    static scared(){
+        this.mode = 'SCARED'
+        console.log(this.mode)
+    }
+
+    // Deprecated Function. 
     removeFromArray(arr, elt){
         for(let i = arr.length - 1; i >= 0; i--){
             if(arr[i] === elt){
