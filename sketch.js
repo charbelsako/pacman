@@ -80,23 +80,22 @@ function draw() {
 	}
 
 	//Initializing the ghosts speeds
-	if (frameCount > 0) {
-		if (frameCount % 20 === 0) {
-			ghosts[0].move()
-		}
-
-		if (frameCount % 15 === 0) {
-			ghosts[1].move()
-		}
-
-		if (frameCount % 25 === 0) {
-			ghosts[3].move()
-		}
-
-		if (frameCount % 20 === 0) {
-			ghosts[2].move()
-		}
+	if (frameCount % 20 === 0) {
+		ghosts[0].move()
 	}
+
+	if (frameCount % 15 === 0) {
+		ghosts[1].move()
+	}
+
+	if (frameCount % 25 === 0) {
+		ghosts[3].move()
+	}
+
+	if (frameCount % 20 === 0) {
+		ghosts[2].move()
+	}
+	
 
 	//The Players speed. 3 moves per second
 	if (frameCount % 10 === 0) {

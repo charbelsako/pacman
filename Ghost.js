@@ -65,13 +65,16 @@ class Ghost {
         let end;
 
         this.changeMode()
-        if (this.mode === 'IDLE') {
-            end = grid[this.i][this.j] // The end is his current location
-        } else if (this.mode === 'HUNTING') {
+        //if the mode is IDLE i don't even need to find the path
+        if(this.mode === 'IDLE'){
+            return
+        }
+
+        if (this.mode === 'HUNTING') {
             end = grid[player.i][player.j] // HUNT the player
         } else if (this.mode === 'SCARED') {
-            end = grid[Math.floor(Math.random() * rows)][Math.floor(Math.random() * cols)] // This will be changed later
-            
+            //SCARED run away to random location on the grid.
+            end = grid[Math.floor(Math.random() * rows)][Math.floor(Math.random() * cols)] 
         }
 
         openSet.push(start)
@@ -97,7 +100,8 @@ class Ghost {
             }
 
             // this.removeFromArray(openSet, current) 
-            // isn't it possible to just splice based on the index variable
+            // isn't it possible to just splice based on the index variable.
+            // EDIT: Turns out it is.
             openSet.splice(index, 1)
             closedSet.push(current)
 
@@ -128,7 +132,7 @@ class Ghost {
     }
 
     collision(p) {
-        if (p.x === this.x && p.y === this.y) {
+        if (this.mode !== 'SCARED' && p.x === this.x && p.y === this.y) {
             console.log('death by collision')
             noLoop()
         }
@@ -159,11 +163,10 @@ class Ghost {
             this.mode = 'HUNTING'
         }
 
-        //Ghosts get scared for four seconds
+        //Ghosts get scared for 7 seconds
         if(this.mode === 'SCARED'){
             setTimeout( () => {
                 this.mode = 'HUNTING' 
-                console.log("ghosts are no longer scared")
             }, 7000)
         }
     }
