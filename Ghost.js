@@ -5,6 +5,7 @@ class Ghost {
         this.path = []
         this.type = type
         this.canKill = true
+        this.previousPath = []
         if (this.type === 'pink') {
             this.i = 0
             this.j = 0
@@ -46,7 +47,7 @@ class Ghost {
         } else if (this.type === 'blue') {
             fill(0, 0, 255)
         }
-        if(this.mode === 'SCARED'){
+        if (this.mode === 'SCARED') {
             stroke(0)
             fill(255)
         }
@@ -67,23 +68,48 @@ class Ghost {
 
         this.changeMode()
         //if the mode is IDLE i don't even need to find the path
-        if(this.mode === 'IDLE'){
+        if (this.mode === 'IDLE') {
             return
         }
 
         if (this.mode === 'HUNTING') {
             //Each Ghost has his own logic
-            if(this.type === 'blue' || this.type === 'pink'|| true){
+            if (this.type === 'green' || this.type === 'pink' || true) {
                 end = grid[player.i][player.j] // HUNT the player
                 this.canKill = true
             }
-            if(this.type === 'pink' && this.path.length <= 5){
+
+            //The blue ghost target 2 tiles in front of the player
+            console.log()
+            if (this.type === 'blue' && this.previousPath.length > 1) {
+                this.canKill = false
+                if (player.dir === 'UP') {
+                    if (player.j >= 2) {
+                        end = grid[player.i][player.j - 2]
+                    }
+                } else if (player.dir === 'LEFT') {
+                    if (player.i >= 2) {
+                        end = grid[player.i - 2][player.j]
+                    }
+                } else if (player.dir === 'RIGHT') {
+                    if(player.i < rows - 3){
+                        end = grid[player.i + 2][player.j]
+                    }
+                } else if (player.dir === 'DOWN') {
+                    if(player.j < cols - 3){
+                        end = grid[player.i][player.j + 2]
+                    }
+                }
+            
+            }
+
+            if (this.type === 'pink' && this.path.length <= 5) {
                 end = grid[0][cols - 1] // Go to your little corner
                 this.canKill = false
             }
         } else if (this.mode === 'SCARED') {
             //SCARED run away to random location on the grid.
-            end = grid[Math.floor(Math.random() * rows)][Math.floor(Math.random() * cols)] 
+            end = grid[Math.floor(Math.random() * rows)][Math.floor(Math.random() * cols)]
         }
 
         openSet.push(start)
@@ -105,6 +131,7 @@ class Ghost {
                     this.path.push(temp.previous)
                     temp = temp.previous
                 }
+                this.previousPath = this.path
                 return
             }
 
@@ -173,9 +200,9 @@ class Ghost {
         }
 
         //Ghosts get scared for 7 seconds
-        if(this.mode === 'SCARED'){
-            setTimeout( () => {
-                this.mode = 'HUNTING' 
+        if (this.mode === 'SCARED') {
+            setTimeout(() => {
+                this.mode = 'HUNTING'
             }, 7000)
         }
     }
