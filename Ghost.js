@@ -70,7 +70,8 @@ class Ghost {
         } else if (this.mode === 'HUNTING') {
             end = grid[player.i][player.j] // HUNT the player
         } else if (this.mode === 'SCARED') {
-            end = grid[0][0] // This will be changed later
+            end = grid[Math.floor(Math.random() * rows)][Math.floor(Math.random() * cols)] // This will be changed later
+            
         }
 
         openSet.push(start)

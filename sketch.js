@@ -1,4 +1,4 @@
-const WIDTH = 400 //width of canvas
+const WIDTH = 600 //width of canvas
 const cols = 15
 const rows = 15
 const w = WIDTH / cols //width of each cell (w is also height)
