@@ -4,6 +4,7 @@ class Ghost {
         this.pathExists = false
         this.path = []
         this.type = type
+        this.canKill = true
         if (this.type === 'pink') {
             this.i = 0
             this.j = 0
@@ -71,7 +72,15 @@ class Ghost {
         }
 
         if (this.mode === 'HUNTING') {
-            end = grid[player.i][player.j] // HUNT the player
+            //Each Ghost has his own logic
+            if(this.type === 'blue' || this.type === 'pink'|| true){
+                end = grid[player.i][player.j] // HUNT the player
+                this.canKill = true
+            }
+            if(this.type === 'pink' && this.path.length <= 5){
+                end = grid[0][cols - 1] // Go to your little corner
+                this.canKill = false
+            }
         } else if (this.mode === 'SCARED') {
             //SCARED run away to random location on the grid.
             end = grid[Math.floor(Math.random() * rows)][Math.floor(Math.random() * cols)] 
@@ -145,7 +154,7 @@ class Ghost {
             this.j = nextPos.j
             this.updateLoc()
         } else {
-            if (this.pathExists && this.mode === 'HUNTING') {
+            if (this.pathExists && this.mode === 'HUNTING' && this.canKill) {
                 console.log('death by ghost reaching you')
                 noLoop()
             }

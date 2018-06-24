@@ -57,7 +57,7 @@ function hasPoints() {
 }
 
 function draw() {
-	background(51);
+	background(0);
 
 	for (let i = 0; i < rows; i++) {
 		for (let j = 0; j < cols; j++) {

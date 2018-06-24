@@ -12,7 +12,7 @@ class Cell{
         this.i = i
         this.j = j
         this.neighbors = []
-        this.isWall = (random(1) > 0.8);
+        this.isWall = (random(1) > 0.99);
 
         this.hasCoin = (!this.isWall)? true : false
         this.special = false
@@ -51,7 +51,8 @@ class Cell{
         if(typeof col !== 'undefined'){
             fill(col)
         }
-        stroke(0)
+        // stroke(0)
+        noStroke()
         rect(this.x, this.y, w - 1, w - 1)
         if(!this.special){
             fill(255,255,0)
