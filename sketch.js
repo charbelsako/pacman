@@ -97,22 +97,25 @@ function draw() {
 	}
 	
 
-	//The Players speed. 3 moves per second
+	//The Players speed. 6 moves per second
 	if (frameCount % 10 === 0) {
-		if (keyIsDown(UP_ARROW)) {
-			p.dir == 'UP'
-			if (p.j > 0 && !grid[p.i][p.j - 1].isWall) {
-				p.j--
+		if(!keyIsDown(RIGHT_ARROW) && !keyIsDown(LEFT_ARROW)){
+			if (keyIsDown(UP_ARROW)) {
+				p.dir == 'UP'
+				if (p.j > 0 && !grid[p.i][p.j - 1].isWall) {
+					p.j--
 					p.y -= w
+				}
+			}
+			if (keyIsDown(DOWN_ARROW)) {
+				p.dir == 'DOWN'
+				if (p.j < cols - 1 && !grid[p.i][p.j + 1].isWall) {
+					p.j++
+						p.y += w
+				}
 			}
 		}
-		if (keyIsDown(DOWN_ARROW)) {
-			p.dir == 'DOWN'
-			if (p.j < cols - 1 && !grid[p.i][p.j + 1].isWall) {
-				p.j++
-					p.y += w
-			}
-		}
+
 		if (keyIsDown(LEFT_ARROW)) {
 			p.dir == 'LEFT'
 			if (p.i > 0 && !grid[p.i - 1][p.j].isWall) {
