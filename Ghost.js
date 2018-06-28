@@ -5,7 +5,7 @@ class Ghost {
         this.path = []
         this.type = type
         this.canKill = true
-        this.previousPath = []
+        this.previousPath = [1]
         if (this.type === 'pink') {
             this.i = 0
             this.j = 0
@@ -79,9 +79,8 @@ class Ghost {
                 this.canKill = true
             }
 
-            //The blue ghost target 2 tiles in front of the player
-            console.log()
-            if (this.type === 'blue' && this.previousPath.length > 1) {
+            //The blue ghost targets 2 tiles in front of the player
+            if (this.type === 'blue' && this.previousPath.length > 0) {
                 this.canKill = false
                 if (player.dir === 'UP') {
                     if (player.j >= 2) {
@@ -92,15 +91,15 @@ class Ghost {
                         end = grid[player.i - 2][player.j]
                     }
                 } else if (player.dir === 'RIGHT') {
-                    if(player.i < rows - 3){
+                    if (player.i < rows - 3) {
                         end = grid[player.i + 2][player.j]
                     }
                 } else if (player.dir === 'DOWN') {
-                    if(player.j < cols - 3){
+                    if (player.j < cols - 3) {
                         end = grid[player.i][player.j + 2]
                     }
                 }
-            
+
             }
 
             if (this.type === 'pink' && this.path.length <= 5) {
@@ -131,7 +130,9 @@ class Ghost {
                     this.path.push(temp.previous)
                     temp = temp.previous
                 }
-                this.previousPath = this.path
+                if(!this.canKill){
+                    this.previousPath = this.path
+                }
                 return
             }
 
@@ -170,7 +171,12 @@ class Ghost {
     collision(p) {
         if (this.mode !== 'SCARED' && p.x === this.x && p.y === this.y) {
             console.log('death by collision')
-            noLoop()
+            p.lives--
+            if (p.lives < 1) {
+                noLoop()
+            } else {
+                p.resetPlayer()
+            }
         }
     }
 
@@ -183,7 +189,12 @@ class Ghost {
         } else {
             if (this.pathExists && this.mode === 'HUNTING' && this.canKill) {
                 console.log('death by ghost reaching you')
-                noLoop()
+                p.lives--
+                    if (p.lives < 1) {
+                        noLoop()
+                    } else {
+                        p.resetPlayer()
+                    }
             }
         }
     }
@@ -200,6 +211,8 @@ class Ghost {
         }
 
         //Ghosts get scared for 7 seconds
+        //This has to change. Since i can't stack multiple blue coin pickups.
+        // I need a time variable. and a function that checks against it.
         if (this.mode === 'SCARED') {
             setTimeout(() => {
                 this.mode = 'HUNTING'
