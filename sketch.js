@@ -11,6 +11,9 @@ ghosts.push(new Ghost('blue'))
 ghosts.push(new Ghost('green'))
 ghosts.push(new Ghost('grey'))
 
+
+let score
+
 //Resets the entire board to its original shape.
 //And sends the ghosts back to their places
 function resetGame(){
@@ -58,6 +61,7 @@ function setup() {
 		resetValues()
 	}
 
+	score = createP(p.score)
 }
 
 
@@ -166,6 +170,5 @@ function draw() {
 		}
 	}
 
-
-
+	document.querySelector('#stats > #score').innerHTML = p.score
 }

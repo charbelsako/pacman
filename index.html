@@ -8,6 +8,7 @@
 	<title>pacman</title>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.js"></script>
+	<script src="libraries/p5.dom.js"></script>
 	<script src="Player.js"></script>	
 	<script src="Ghost.js"></script>
 	<script src="sketch.js"></script>
@@ -22,8 +23,31 @@
 		canvas {
 			margin:auto;
 		}
+
+		#stats{
+			position: absolute;
+			left: 50%;
+			width: 250px;
+			height: 250px;
+			border: 4px solid black;
+		}
 	</style>
 </head>
+
 <body>
+	<div id="stats">
+		<h3>Stats</h3>
+		Score: <span id="score"></span>
+		<br>
+		<br>
+		Distances: <ul id="distances">
+			<li>To Blue: 600 </li>
+			<li>To Pink: </li>
+			<li>To Grey: </li>
+			<li>To Green: </li>
+		</ul> 
+		<!-- Other stuff to be added later  -->
+	</div>
 </body>
+
 </html>

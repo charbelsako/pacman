@@ -37,6 +37,9 @@ class Cell{
                 ghosts.map(ghost => ghost.scared())
             }
             this.special = false
+            if(this.hasCoin){
+                p.score++
+            }
             this.hasCoin = false
             if(!hasPoints()){
                 console.log('you win')
