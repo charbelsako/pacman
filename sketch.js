@@ -11,6 +11,23 @@ ghosts.push(new Ghost('blue'))
 ghosts.push(new Ghost('green'))
 ghosts.push(new Ghost('grey'))
 
+//Resets the entire board to its original shape.
+//And sends the ghosts back to their places
+function resetGame(){
+	for (let i = 0; i < rows; i++) {
+		for (let j = 0; j < cols; j++) {
+			if(!grid[i][j].isWall && !grid[i][j].hasCoin){
+				grid[i][j].hasCoin = true
+			}
+		}
+	}
+}
+
+function resetGhosts(){
+	ghosts.map(ghost => ghost.resetGhost())
+}
+
+//Resets the values of a grid that are going to be manipulated for the algorithm.
 function resetValues() {
 	for (let i = 0; i < rows; i++) {
 		for (let j = 0; j < cols; j++) {

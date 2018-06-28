@@ -24,6 +24,23 @@ class Ghost {
 
     }
 
+
+    resetGhost(){
+        if (this.type === 'pink') {
+            this.i = 0
+            this.j = 0
+        } else if (this.type === 'green') {
+            this.i = 0
+            this.j = cols - 1
+        } else if (this.type === 'blue') {
+            this.i = rows - 1
+            this.j = 0
+        } else if (this.type === 'grey') {
+            this.i = rows - 1
+            this.j = cols - 1
+        }
+    }
+
     scared() {
         this.mode = 'SCARED'
     }
