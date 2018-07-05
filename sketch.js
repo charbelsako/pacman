@@ -101,19 +101,19 @@ function draw() {
 	}
 
 	//Initializing the ghosts speeds
-	if (frameCount % 20 === 0) {
+	if (frameCount % 10 === 0) {
 		ghosts[0].move()
 	}
 
-	if (frameCount % 15 === 0) {
+	if (frameCount % 10 === 0) {
 		ghosts[1].move()
 	}
 
-	if (frameCount % 25 === 0) {
+	if (frameCount % 10 === 0) {
 		ghosts[3].move()
 	}
 
-	if (frameCount % 20 === 0) {
+	if (frameCount % 10 === 0) {
 		ghosts[2].move()
 	}
 	
@@ -170,5 +170,5 @@ function draw() {
 		}
 	}
 
-	document.querySelector('#stats > #score').innerHTML = p.score
+	// document.querySelector('#stats > #score').innerHTML = p.score
 }

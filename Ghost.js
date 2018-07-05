@@ -119,6 +119,27 @@ class Ghost {
 
             }
 
+            //The grey ghost targets the area around the player. Sort of.
+            if(this.type === 'grey'){
+                if(player.dir === 'UP'){
+                    if (player.i >= 2) {
+                        end = grid[player.i - 2][player.j]
+                    }
+                }else if(player.dir === 'DOWN'){
+                    if (player.i < rows - 3) {
+                        end = grid[player.i + 2][player.j]
+                    }
+                }else if(player.dir === 'LEFT'){
+                    if (player.j >= 2) {
+                        end = grid[player.i][player.j - 2]
+                    }
+                }else if(player.dir === 'RIGHT'){
+                    if (player.j < cols - 3) {
+                        end = grid[player.i][player.j + 2]
+                    }
+                }
+            }
+
             if (this.type === 'pink' && this.path.length <= 5) {
                 end = grid[0][cols - 1] // Go to your little corner
                 this.canKill = false
