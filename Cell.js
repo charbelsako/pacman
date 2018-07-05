@@ -12,10 +12,35 @@ class Cell{
         this.i = i
         this.j = j
         this.neighbors = []
-        this.isWall = (random(1) > 0.99);
+        this.isWall = false;
+
+
+        //Trying to make the map
+        if(this.i === 1 && this.j === 1 
+            || this.i === rows - 2 && this.j === cols - 2 
+            || this.i === 1 && this.j === cols - 2 
+            || this.i === rows - 2 && this.j === 1
+            || this.i === 3 && this.j >= 3 && this.j < cols - 3
+            || this.i === rows - 4 && this.j >= 3 && this.j < cols - 3
+            || this.i > Math.floor(rows / 2) - 3 && this.i < Math.floor(rows/2) && this.j === Math.floor(cols / 2) 
+            || this.i > Math.floor(rows / 2) && this.i <= Math.floor(rows/2) + 2 && this.j === Math.floor(cols / 2) 
+            || this.j === 11 && this.i === 8
+            || this.j === 12 && this.i === 8
+            || this.j === 11 && this.i === 12
+            || this.j === 12 && this.i === 12
+            || this.i > Math.floor(rows / 2) - 3 && this.i <= Math.floor(rows/2) + 2 && this.j === Math.floor(cols / 2) + 3
+         ){
+            this.isWall = true
+        }
+
+        
 
         this.hasCoin = (!this.isWall)? true : false
         this.special = false
+
+        if(this.i > 8 && this.i < 12 && this.j >= 10 && this.j <= 12){
+            this.hasCoin = false
+        }
 
         if( this.i === rows - 1 && this.j === cols - 1 || this.i === 0 && this.j === 0 
             || this.i === rows - 1 && this.j === 0 || this.i === 0 && this.j === cols - 1 

@@ -1,6 +1,6 @@
 const WIDTH = 600 //width of canvas
-const cols = 15
-const rows = 15
+const cols = 21
+const rows = 21
 const w = WIDTH / cols //width of each cell (w is also height)
 let grid = new Array(rows).fill().map(val => Array(cols))
 let p = new Player();
@@ -61,7 +61,7 @@ function setup() {
 		resetValues()
 	}
 
-	score = createP(p.score)
+	// score = createP(p.score)
 }
 
 
@@ -101,19 +101,19 @@ function draw() {
 	}
 
 	//Initializing the ghosts speeds
-	if (frameCount % 10 === 0) {
+	if (frameCount % 15 === 0) {
 		ghosts[0].move()
 	}
 
-	if (frameCount % 10 === 0) {
+	if (frameCount % 15 === 0) {
 		ghosts[1].move()
 	}
 
-	if (frameCount % 10 === 0) {
+	if (frameCount % 15 === 0) {
 		ghosts[3].move()
 	}
 
-	if (frameCount % 10 === 0) {
+	if (frameCount % 15 === 0) {
 		ghosts[2].move()
 	}
 	
@@ -170,5 +170,7 @@ function draw() {
 		}
 	}
 
-	// document.querySelector('#stats > #score').innerHTML = p.score
+	document.querySelector('#stats > #score').innerHTML = p.score
+	document.querySelector('#stats > #lives').innerHTML = p.lives
+
 }
