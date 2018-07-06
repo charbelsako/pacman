@@ -5,10 +5,13 @@ const cols = 21
 const rows = 21
 const w = WIDTH / cols //width of each cell (w is also height)
 let grid = new Array(rows).fill().map(val => Array(cols))
+let numCoins = 0
 
 let players = new Array(TOTAL)
 for(let i = 0; i < TOTAL; i++){
-	players[i] = new Player()
+	//Making a brain
+	let pacman_brain = new NeuralNetwork(4, 2, 4)
+	players[i] = new Player(pacman_brain)
 }
 let counter = 0 //each time a pacman dies increment this counter
 let p = players[counter]
@@ -22,8 +25,7 @@ ghosts.push(new Ghost('grey')) 	//ghosts[3]
 
 let score
 
-//Making a brain
-let pacman_brain = new NeuralNetwork(4, 2, 4)
+
 //Inputs
 let distances = new Array(4)
 let diagonalDistance
@@ -84,6 +86,11 @@ function setup() {
 		resetValues()
 	}
 	diagonalDistance = dist(0,0,width,height)
+
+	//Number of coins
+	for(let i = 0; i < rows; i++){
+		numCoins += grid[i].filter( a => !a.isWall).length
+	}
 }
 
 
@@ -115,7 +122,6 @@ function draw() {
 	}
 
 	p.show()
-	p.fitness++;
 
 	for (let i = 0; i < ghosts.length; i++) {
 		ghosts[i].show()
@@ -155,7 +161,7 @@ function draw() {
 	//In the future you will not need to move the player manually
 	if (frameCount % 15 === 0) {
 		//Predict the next move.
-		let result = pacman_brain.predict(distances)
+		let result = p.brain.predict(distances)
 		//Find the biggest value
 		let index = 0
 		for (let i = 1; i < result.length; i++) {
@@ -166,12 +172,16 @@ function draw() {
 		// console.log(index)
 		//Move accordingly
 		if (index === 0) {
+			// console.log("moving up")
 			p.moveUp()
 		} else if (index === 1) {
+			// console.log("moving right")
 			p.moveRight()
 		} else if (index === 2) {
+			// console.log("moving down")
 			p.moveDown()
 		} else if (index === 3) {
+			// console.log("moving left")
 			p.moveLeft()
 		}
 
@@ -234,5 +244,4 @@ function draw() {
 	document.querySelector('#stats > #distances #d_to_pink').innerHTML = distances[1]
 	document.querySelector('#stats > #distances #d_to_grey').innerHTML = distances[2]
 	document.querySelector('#stats > #distances #d_to_green').innerHTML = distances[3]
-
 }

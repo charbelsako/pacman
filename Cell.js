@@ -64,6 +64,7 @@ class Cell{
             this.special = false
             if(this.hasCoin){
                 p.score++
+                p.calcFitness()
             }
             this.hasCoin = false
             if(!hasPoints()){

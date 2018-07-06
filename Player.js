@@ -1,5 +1,5 @@
 class Player {
-    constructor() {
+    constructor(brain) {
         this.i = Math.floor(rows / 2)
         this.j = cols - 1
         this.x = this.i * w
@@ -8,6 +8,7 @@ class Player {
         this.lives = Infinity
         this.score = 0
         this.fitness = 0
+        this.brain = brain
     }
 
     show() {
@@ -16,8 +17,10 @@ class Player {
     }
 
     collision(ghost){
-        if (ghost.i === this.i && ghost.j === this.j) {
-            console.log('death by collision (Player Function)')
+        if (ghost.i === this.i && ghost.j === this.j && ghost.mode !== 'SCARED') {
+            this.calcFitness()
+            // console.log(this.fitness)
+            // console.log('death by collision (Player Function)')
             this.lives--
             getNewPlayer()
             pop_size--
@@ -27,6 +30,10 @@ class Player {
                 this.resetPlayer()
             }
         }
+    }
+
+    calcFitness(){
+        this.fitness = this.score / numCoins
     }
 
     resetPlayer() {
