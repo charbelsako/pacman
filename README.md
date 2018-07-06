@@ -22,6 +22,8 @@ Which can still work if you program it right.
 
 * The player moves along a grid instead of the animation that you would usually see in games
 
+* The pacman dies when any of the ghosts have no more items in their `path` array. This proved to be a problem. Instead you could just use the `collisison` function.
+
 ## Possible updates
 
 I really wish to add NeuroEvolution to this project.
