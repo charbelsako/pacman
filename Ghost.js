@@ -43,6 +43,10 @@ class Ghost {
 
     scared() {
         this.mode = 'SCARED'
+        setTimeout(() => {
+            console.log("not scared")
+            this.NotScared()
+        }, 7000)
     }
 
     // Deprecated Function. 
@@ -91,10 +95,9 @@ class Ghost {
 
         if (this.mode === 'HUNTING') {
             //Each Ghost has his own logic
-            if (this.type === 'green' || this.type === 'pink' || true) {
-                end = grid[player.i][player.j] // HUNT the player
-                this.canKill = true
-            }
+            
+            end = grid[player.i][player.j] // HUNT the player
+            this.canKill = true
 
             //The blue ghost targets 2 tiles in front of the player
             if (this.type === 'blue' && this.previousPath.length > 0) {
@@ -140,10 +143,12 @@ class Ghost {
                 }
             }
 
-            if (this.type === 'pink' && this.path.length <= 5) {
+            //The pink ghost is scared of the player
+            if (this.type === 'pink' && this.pathExists && this.path.length < 4) {
                 end = grid[0][cols - 1] // Go to your little corner
-                this.canKill = false
+                this.canKill = false // This is necessary since when a ghost has no cells left in its path array that means they killed you
             }
+            
         } else if (this.mode === 'SCARED') {
             //SCARED run away to random location on the grid.
             end = grid[Math.floor(Math.random() * rows)][Math.floor(Math.random() * cols)]
@@ -228,11 +233,12 @@ class Ghost {
             if (this.pathExists && this.mode === 'HUNTING' && this.canKill) {
                 console.log('death by ghost reaching you')
                 p.lives--
-                    if (p.lives < 1) {
-                        noLoop()
-                    } else {
-                        p.resetPlayer()
-                    }
+                if (p.lives < 1) {
+                    console.log("Out of lives")
+                    noLoop()
+                } else {
+                    p.resetPlayer()
+                }
             }
         }
     }
@@ -247,15 +253,10 @@ class Ghost {
         if (this.mode === 'IDLE' && frameCount > 120) {
             this.mode = 'HUNTING'
         }
+    }
 
-        //Ghosts get scared for 7 seconds
-        //This has to change. Since i can't stack multiple blue coin pickups.
-        // I need a time variable. and a function that checks against it.
-        if (this.mode === 'SCARED') {
-            setTimeout(() => {
-                this.mode = 'HUNTING'
-            }, 7000)
-        }
+    NotScared(){
+        this.mode = 'HUNTING'
     }
 
 }

@@ -9,6 +9,8 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.js"></script>
+	<script src="lib/matrix.js"></script>
+	<script src="lib/nn.js"></script>
 	<script src="Player.js"></script>	
 	<script src="Ghost.js"></script>
 	<script src="sketch.js"></script>
@@ -26,7 +28,7 @@
 
 		#stats{
 			position: absolute;
-			left: 50%;
+			right: 0%;
 			width: 250px;
 			height: 250px;
 			border: 4px solid black;
@@ -45,10 +47,10 @@
 		<br>
 		<br>
 		Distances: <ul id="distances">
-			<li>To Blue: 600 </li>
-			<li>To Pink: </li>
-			<li>To Grey: </li>
-			<li>To Green: </li>
+			<li>To Blue: <span id="d_to_blue"></span> </li>
+			<li>To Pink: <span id="d_to_pink"></span></li>
+			<li>To Grey: <span id="d_to_grey"></span></li>
+			<li>To Green: <span id="d_to_green"></span></li>
 		</ul> 
 	</div>
 </body>

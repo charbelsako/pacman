@@ -6,17 +6,23 @@ let grid = new Array(rows).fill().map(val => Array(cols))
 let p = new Player();
 
 let ghosts = []
-ghosts.push(new Ghost('pink'))
-ghosts.push(new Ghost('blue'))
-ghosts.push(new Ghost('green'))
-ghosts.push(new Ghost('grey'))
+ghosts.push(new Ghost('pink')) 	//ghosts[0]
+ghosts.push(new Ghost('blue')) 	//ghosts[1]
+ghosts.push(new Ghost('green')) //ghosts[2]
+ghosts.push(new Ghost('grey')) 	//ghosts[3]
 
 
 let score
 
+//Making a brain
+let pacman_brain = new NeuralNetwork(4,2,4)
+//Inputs
+let distances = []
+
 //Resets the entire board to its original shape.
 //And sends the ghosts back to their places
 function resetGame(){
+	//Refill all the non wall cells.
 	for (let i = 0; i < rows; i++) {
 		for (let j = 0; j < cols; j++) {
 			if(!grid[i][j].isWall && !grid[i][j].hasCoin){
@@ -24,10 +30,14 @@ function resetGame(){
 			}
 		}
 	}
+	//Reset Player Score
+	p.score = 0
+	//Reset Player Location
+	p.resetPlayer()
 }
 
 function resetGhosts(){
-	ghosts.map(ghost => ghost.resetGhost())
+	ghosts.map( ghost => ghost.resetGhost() )
 }
 
 //Resets the values of a grid that are going to be manipulated for the algorithm.
@@ -38,7 +48,6 @@ function resetValues() {
 			grid[i][j].g = 0
 			grid[i][j].h = 0
 			grid[i][j].previous = undefined
-
 		}
 	}
 }
@@ -120,6 +129,8 @@ function draw() {
 
 	//The Players speed. 6 moves per second
 	if (frameCount % 10 === 0) {
+		//Predict the next move.
+		//
 		if(!keyIsDown(RIGHT_ARROW) && !keyIsDown(LEFT_ARROW)){
 			if (keyIsDown(UP_ARROW)) {
 				p.dir = 'UP'
@@ -172,5 +183,9 @@ function draw() {
 
 	document.querySelector('#stats > #score').innerHTML = p.score
 	document.querySelector('#stats > #lives').innerHTML = p.lives
+	document.querySelector('#stats > #distances #d_to_blue').innerHTML = dist(p.x, p.y, ghosts[1].x, ghosts[1].y)
+	document.querySelector('#stats > #distances #d_to_pink').innerHTML = dist(p.x, p.y, ghosts[0].x, ghosts[0].y)
+	document.querySelector('#stats > #distances #d_to_grey').innerHTML = dist(p.x, p.y, ghosts[3].x, ghosts[3].y)
+	document.querySelector('#stats > #distances #d_to_green').innerHTML = dist(p.x, p.y, ghosts[2].x, ghosts[2].y)
 
 }
