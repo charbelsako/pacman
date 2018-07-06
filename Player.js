@@ -2,11 +2,12 @@ class Player {
     constructor() {
         this.i = Math.floor(rows / 2)
         this.j = cols - 1
-        this.x = this.i * w;
-        this.y = this.j * w;
+        this.x = this.i * w
+        this.y = this.j * w
         this.dir = undefined
         this.lives = Infinity
         this.score = 0
+        this.fitness = 0
     }
 
     show() {
@@ -18,6 +19,8 @@ class Player {
         if (ghost.i === this.i && ghost.j === this.j) {
             console.log('death by collision (Player Function)')
             this.lives--
+            getNewPlayer()
+            pop_size--
             if (this.lives < 1) {
                 noLoop()
             } else {
@@ -27,7 +30,6 @@ class Player {
     }
 
     resetPlayer() {
-        
         this.i = Math.floor(rows / 2)
         this.j = cols - 1
         this.x = this.i * w;

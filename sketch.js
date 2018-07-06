@@ -1,15 +1,23 @@
+const TOTAL = 100 // Amount of pacmen
+let pop_size = TOTAL
 const WIDTH = 600 //width of canvas
 const cols = 21
 const rows = 21
 const w = WIDTH / cols //width of each cell (w is also height)
 let grid = new Array(rows).fill().map(val => Array(cols))
-let p = new Player()
+
+let players = new Array(TOTAL)
+for(let i = 0; i < TOTAL; i++){
+	players[i] = new Player()
+}
+let counter = 0 //each time a pacman dies increment this counter
+let p = players[counter]
 
 let ghosts = []
-ghosts.push(new Ghost('pink')) //ghosts[0]
-ghosts.push(new Ghost('blue')) //ghosts[1]
+ghosts.push(new Ghost('pink')) 	//ghosts[0]
+ghosts.push(new Ghost('blue')) 	//ghosts[1]
 ghosts.push(new Ghost('green')) //ghosts[2]
-ghosts.push(new Ghost('grey')) //ghosts[3]
+ghosts.push(new Ghost('grey')) 	//ghosts[3]
 
 
 let score
@@ -36,6 +44,10 @@ function resetGame() {
 	//Reset Player Location
 	p.resetPlayer()
 	resetGhosts()
+}
+
+function getNewPlayer(){
+	p = players[++counter]
 }
 
 function resetGhosts() {
@@ -103,6 +115,7 @@ function draw() {
 	}
 
 	p.show()
+	p.fitness++;
 
 	for (let i = 0; i < ghosts.length; i++) {
 		ghosts[i].show()
@@ -215,6 +228,8 @@ function draw() {
 
 	document.querySelector('#stats > #score').innerHTML = p.score
 	document.querySelector('#stats > #lives').innerHTML = p.lives
+	document.querySelector('#stats > #fitness').innerHTML = p.fitness
+	document.querySelector('#stats > #population').innerHTML = pop_size
 	document.querySelector('#stats > #distances #d_to_blue').innerHTML = distances[0]
 	document.querySelector('#stats > #distances #d_to_pink').innerHTML = distances[1]
 	document.querySelector('#stats > #distances #d_to_grey').innerHTML = distances[2]
