@@ -5,13 +5,25 @@ class Player {
         this.x = this.i * w;
         this.y = this.j * w;
         this.dir = undefined
-        this.lives = 10
+        this.lives = Infinity
         this.score = 0
     }
 
     show() {
         fill(255, 0, 0)
         ellipse(this.x + w / 2, this.y + w / 2, w - 5)
+    }
+
+    collision(ghost){
+        if (ghost.i === this.i && ghost.j === this.j) {
+            console.log('death by collision (Player Function)')
+            this.lives--
+            if (this.lives < 1) {
+                noLoop()
+            } else {
+                this.resetPlayer()
+            }
+        }
     }
 
     resetPlayer() {

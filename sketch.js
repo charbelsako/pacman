@@ -119,18 +119,22 @@ function draw() {
 	//Initializing the ghosts speeds
 	if (frameCount % 15 === 0) {
 		ghosts[0].move()
+		p.collision(ghosts[0])
 	}
 
 	if (frameCount % 15 === 0) {
 		ghosts[1].move()
+		p.collision(ghosts[1])
 	}
 
 	if (frameCount % 15 === 0) {
 		ghosts[3].move()
+		p.collision(ghosts[3])
 	}
 
 	if (frameCount % 15 === 0) {
 		ghosts[2].move()
+		p.collision(ghosts[2])
 	}
 
 

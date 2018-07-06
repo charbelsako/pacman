@@ -28,6 +28,6 @@ Which can still work if you program it right.
 
 ## Possible updates
 
-I really wish to add NeuroEvolution to this project.
+I really wish to add NeuroEvolution to this project. (WIP)
 
 I have the basic setup done (in my head).
