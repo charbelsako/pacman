@@ -18,6 +18,10 @@ let score
 let pacman_brain = new NeuralNetwork(4,2,4)
 //Inputs
 let distances = []
+distances.push(dist(p.x,p.y,ghosts[1].x,ghosts[1].y))
+distances.push(dist(p.x,p.y,ghosts[0].x,ghosts[0].y))
+distances.push(dist(p.x,p.y,ghosts[3].x,ghosts[3].y))
+distances.push(dist(p.x,p.y,ghosts[2].x,ghosts[2].y))
 
 //Resets the entire board to its original shape.
 //And sends the ghosts back to their places
@@ -128,6 +132,7 @@ function draw() {
 	
 
 	//The Players speed. 6 moves per second
+	//In the future you will not need to move the player manually
 	if (frameCount % 10 === 0) {
 		//Predict the next move.
 		//
@@ -183,9 +188,9 @@ function draw() {
 
 	document.querySelector('#stats > #score').innerHTML = p.score
 	document.querySelector('#stats > #lives').innerHTML = p.lives
-	document.querySelector('#stats > #distances #d_to_blue').innerHTML = dist(p.x, p.y, ghosts[1].x, ghosts[1].y)
-	document.querySelector('#stats > #distances #d_to_pink').innerHTML = dist(p.x, p.y, ghosts[0].x, ghosts[0].y)
-	document.querySelector('#stats > #distances #d_to_grey').innerHTML = dist(p.x, p.y, ghosts[3].x, ghosts[3].y)
-	document.querySelector('#stats > #distances #d_to_green').innerHTML = dist(p.x, p.y, ghosts[2].x, ghosts[2].y)
+	document.querySelector('#stats > #distances #d_to_blue').innerHTML = distances[0]
+	document.querySelector('#stats > #distances #d_to_pink').innerHTML = distances[1]
+	document.querySelector('#stats > #distances #d_to_grey').innerHTML = distances[2]
+	document.querySelector('#stats > #distances #d_to_green').innerHTML = distances[3]
 
 }
