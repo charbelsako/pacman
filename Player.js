@@ -15,6 +15,7 @@ class Player {
     }
 
     resetPlayer() {
+        
         this.i = Math.floor(rows / 2)
         this.j = cols - 1
         this.x = this.i * w;

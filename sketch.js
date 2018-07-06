@@ -18,10 +18,7 @@ let score
 let pacman_brain = new NeuralNetwork(4,2,4)
 //Inputs
 let distances = []
-distances.push(dist(p.x,p.y,ghosts[1].x,ghosts[1].y))
-distances.push(dist(p.x,p.y,ghosts[0].x,ghosts[0].y))
-distances.push(dist(p.x,p.y,ghosts[3].x,ghosts[3].y))
-distances.push(dist(p.x,p.y,ghosts[2].x,ghosts[2].y))
+
 
 //Resets the entire board to its original shape.
 //And sends the ghosts back to their places
@@ -38,6 +35,7 @@ function resetGame(){
 	p.score = 0
 	//Reset Player Location
 	p.resetPlayer()
+	resetGhosts()
 }
 
 function resetGhosts(){
@@ -74,6 +72,10 @@ function setup() {
 		resetValues()
 	}
 
+	distances.push(dist(p.x,p.y,ghosts[1].x,ghosts[1].y))
+	distances.push(dist(p.x,p.y,ghosts[0].x,ghosts[0].y))
+	distances.push(dist(p.x,p.y,ghosts[3].x,ghosts[3].y))
+	distances.push(dist(p.x,p.y,ghosts[2].x,ghosts[2].y))
 	// score = createP(p.score)
 }
 
