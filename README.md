@@ -1,5 +1,7 @@
 # Pacman GAME AI
 
+> Disclaimer i did not make any of the files in the lib/ folder.
+
 This game was primarily made just to work with algorithms and not to actually make a game.
 
 * A* pathfinding algorithm

@@ -44,7 +44,7 @@ class Ghost {
     scared() {
         this.mode = 'SCARED'
         setTimeout(() => {
-            console.log("not scared")
+            // console.log("not scared")
             this.NotScared()
         }, 7000)
     }
@@ -96,6 +96,7 @@ class Ghost {
         if (this.mode === 'HUNTING') {
             //Each Ghost has his own logic
             
+            //All ghosts are assigned the player by default
             end = grid[player.i][player.j] // HUNT the player
             this.canKill = true
 
@@ -145,6 +146,7 @@ class Ghost {
 
             //The pink ghost is scared of the player
             if (this.type === 'pink' && this.pathExists && this.path.length < 4) {
+                //This ghost is broken
                 end = grid[0][cols - 1] // Go to your little corner
                 this.canKill = false // This is necessary since when a ghost has no cells left in its path array that means they killed you
             }
@@ -231,7 +233,7 @@ class Ghost {
             this.updateLoc()
         } else {
             if (this.pathExists && this.mode === 'HUNTING' && this.canKill) {
-                console.log('death by ghost reaching you')
+                // console.log('death by ghost reaching you')
                 p.lives--
                 if (p.lives < 1) {
                     console.log("Out of lives")

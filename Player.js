@@ -5,7 +5,7 @@ class Player {
         this.x = this.i * w;
         this.y = this.j * w;
         this.dir = undefined
-        this.lives = 3
+        this.lives = 10
         this.score = 0
     }
 
