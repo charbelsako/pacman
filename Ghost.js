@@ -29,13 +29,16 @@ class Ghost {
         if (this.type === 'pink') {
             this.i = 0
             this.j = 0
-        } else if (this.type === 'green') {
+        } 
+        if (this.type === 'green') {
             this.i = 0
             this.j = cols - 1
-        } else if (this.type === 'blue') {
+        }
+        if (this.type === 'blue') {
             this.i = rows - 1
             this.j = 0
-        } else if (this.type === 'grey') {
+        }
+        if (this.type === 'grey') {
             this.i = rows - 1
             this.j = cols - 1
         }
@@ -87,7 +90,7 @@ class Ghost {
         let start = grid[this.i][this.j]
         let end;
 
-        this.changeMode()
+        this.changeMode() //Would like to change where this is .
         //if the mode is IDLE i don't even need to find the path
         if (this.mode === 'IDLE') {
             return
@@ -214,8 +217,9 @@ class Ghost {
     }
 
     collision(p) {
-        if (this.mode !== 'SCARED' && p.x === this.x && p.y === this.y) {
-            console.log('death by collision')
+        if (this.mode !== 'SCARED' && p.i === this.i && p.j === this.j) {
+            // console.log('death by collision')
+            resetGhosts()
             p.lives--
             if (p.lives < 1) {
                 noLoop()

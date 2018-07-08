@@ -9,6 +9,7 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.js"></script>
+	<script src="ga.js"></script>
 	<script src="lib/matrix.js"></script>
 	<script src="lib/nn.js"></script>
 	<script src="Player.js"></script>	
@@ -38,8 +39,11 @@
 
 <body>
 	<div id="stats">
-		<!-- This will be removed from this branch. And then added to the neuroevolution branch -->
 		<h3>Stats</h3>
+		Best Score: <span id="best"></span>
+		<br><br>
+		Generation: <span id="generation"></span>
+		<br><br>
 		Population Size: <span id="population"></span>
 		<br>
 		<br>

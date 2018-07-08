@@ -57,21 +57,6 @@ class Cell{
     }
 
     show(col){
-        if(p.i === this.i && p.j === this.j){
-            if(this.special){
-                ghosts.map(ghost => ghost.scared())
-            }
-            this.special = false
-            if(this.hasCoin){
-                p.score++
-                p.calcFitness()
-            }
-            this.hasCoin = false
-            if(!hasPoints()){
-                console.log('you win')
-                noLoop()
-            }
-        }
         if(this.isWall){
             fill(0)
         }else{
@@ -90,6 +75,24 @@ class Cell{
         }
         if(this.hasCoin){
             ellipse(this.x + w/2, this.y + w/2, w/3);
+        }
+    }
+
+    coinPicked() {
+        if (p.i === this.i && p.j === this.j) {
+            if (this.special) {
+                ghosts.map(ghost => ghost.scared());
+                p.score += 9
+            }
+            this.special = false;
+            if (this.hasCoin) {
+                p.score++
+            }
+            this.hasCoin = false;
+            if (!hasPoints()) {
+                console.log('you win');
+                saveJSON(p.brain, 'best.json') //if a bird won the game save its configuration
+            }
         }
     }
 
