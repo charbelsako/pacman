@@ -1,4 +1,4 @@
-const TOTAL = 10 // Amount of pacmen
+const TOTAL = 100 // Amount of pacmen
 let pop_size = TOTAL
 const WIDTH = 600 //width of canvas
 const cols = 21
@@ -32,20 +32,32 @@ let generation = 0
 let distances = new Array(4)
 let diagonalDistance
 
+let gameSpeed
+
 //Resets the entire board to its original shape.
 //And sends the ghosts back to their places
 function resetGame() {
-	//Refill all the non wall cells.
+	resetGhosts()
+	//Refill all the non wall cells. WAIT. This is wrong
+	//Some Cells that shouldn't have coins are getting coins.
 	for (let i = 0; i < rows; i++) {
 		for (let j = 0; j < cols; j++) {
 			if (!grid[i][j].isWall && !grid[i][j].hasCoin) {
-				grid[i][j].hasCoin = true
+				if(grid[i][j].i > 8 && grid[i][j].i < 12 && grid[i][j].j >= 10 && grid[i][j].j <= 12){
+					grid[i][j].hasCoin = false
+				}else{
+					grid[i][j].hasCoin = true
+				}
+				if( grid[i][j].i === rows - 1 && grid[i][j].j === cols - 1 || grid[i][j].i === 0 && grid[i][j].j === 0 
+					|| grid[i][j].i === rows - 1 && grid[i][j].j === 0 || grid[i][j].i === 0 && grid[i][j].j === cols - 1 ){
+						grid[i][j].special = true
+				}
 			}
 		}
 	}
 	//Reset Player Location
 	p.resetPlayer()
-	resetGhosts()
+	
 }
 
 function getBestScore(players){
@@ -92,6 +104,7 @@ function resetValues() {
 
 function setup() {
 	createCanvas(WIDTH, WIDTH)
+	gameSpeed = createSlider(1,200,1, 10)
 	for (let i = 0; i < rows; i++) {
 		for (let j = 0; j < cols; j++) {
 			grid[i][j] = new Cell(i, j)
@@ -130,7 +143,7 @@ function hasPoints() {
 
 function draw() {
 	//All the logic
-	for(let i = 0; i < 10; i++){
+	for(let i = 0; i < gameSpeed.value(); i++){
 		//Distance changes every single frame. Dividing by the diagonal distance to normalize values
 		distances[0] = dist(p.x, p.y, ghosts[1].x, ghosts[1].y) / diagonalDistance
 		distances[1] = dist(p.x, p.y, ghosts[0].x, ghosts[0].y) / diagonalDistance

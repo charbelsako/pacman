@@ -38,6 +38,7 @@ class Player {
       this.lives--
       getNewPlayer()
       if (this.lives < 1) {
+        console.log("No more lives")
         noLoop()
       }
     }

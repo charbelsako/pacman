@@ -18,7 +18,6 @@ function resetGameGA() {
 
 // Create the next generation
 function nextGeneration() {
-  noLoop()
   generation++
   // console.log("Next Generation")
   resetGameGA()
