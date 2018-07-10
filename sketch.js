@@ -1,8 +1,8 @@
 const TOTAL = 100 // Amount of pacmen
 let pop_size = TOTAL
 const WIDTH = 600 //width of canvas
-const cols = 21
-const rows = 21
+const cols = 17
+const rows = 17
 const w = WIDTH / cols //width of each cell (w is also height)
 let grid = new Array(rows).fill().map(val => Array(cols))
 let numCoins = 0
@@ -43,11 +43,12 @@ function resetGame() {
 	for (let i = 0; i < rows; i++) {
 		for (let j = 0; j < cols; j++) {
 			if (!grid[i][j].isWall && !grid[i][j].hasCoin) {
-				if(grid[i][j].i > 8 && grid[i][j].i < 12 && grid[i][j].j >= 10 && grid[i][j].j <= 12){
+				if(grid[i][j].i > 5 && grid[i][j].i < 11 && grid[i][j].j > 7 && grid[i][j].j < 11){
 					grid[i][j].hasCoin = false
 				}else{
 					grid[i][j].hasCoin = true
 				}
+				// The edges are special coins
 				if( grid[i][j].i === rows - 1 && grid[i][j].j === cols - 1 || grid[i][j].i === 0 && grid[i][j].j === 0 
 					|| grid[i][j].i === rows - 1 && grid[i][j].j === 0 || grid[i][j].i === 0 && grid[i][j].j === cols - 1 ){
 						grid[i][j].special = true
@@ -85,9 +86,10 @@ function getNewPlayer(){
 
 function resetGhosts() {
 	// console.log('resetting ghosts')
-	for(let ghost of ghosts){
-		ghost.resetGhost()
+	for(let i = 0; i < ghosts.length; i++){
+		ghosts[i].resetGhost()
 	}
+	ghosts[2].resetGhost()
 }
 
 //Resets the values of a grid that are going to be manipulated for the algorithm.
@@ -104,7 +106,7 @@ function resetValues() {
 
 function setup() {
 	createCanvas(WIDTH, WIDTH)
-	gameSpeed = createSlider(1,200,1, 10)
+	gameSpeed = createSlider(1,200, 200 , 10)
 	for (let i = 0; i < rows; i++) {
 		for (let j = 0; j < cols; j++) {
 			grid[i][j] = new Cell(i, j)
@@ -126,6 +128,7 @@ function setup() {
 	for(let i = 0; i < rows; i++){
 		numCoins += grid[i].filter( a => !a.isWall).length
 	}
+	console.log(`max number of coins is ${numCoins}`)
 }
 
 
@@ -167,26 +170,27 @@ function draw() {
 			}
 		}
 
+		// on frame #20 this will run quite a few times
 		//Initializing the ghosts speeds
-		// if (frameCount % 15 === 0) {
+		if (frameCount % 5 === 0) {
 			ghosts[0].move()
 			p.collision(ghosts[0])
-		// }
+		}
 
-		// if (frameCount % 15 === 0) {
+		if (frameCount % 15 === 0) {
 			ghosts[1].move()
 			p.collision(ghosts[1])
-		// }
+		}
 
-		// if (frameCount % 15 === 0) {
+		if (frameCount % 10 === 0) {
 			ghosts[3].move()
 			p.collision(ghosts[3])
-		// }
+		}
 
-		// if (frameCount % 15 === 0) {
+		if (frameCount % 20 === 0) {
 			ghosts[2].move()
 			p.collision(ghosts[2])
-		// }
+		}
 
 
 		//The Players speed. 6 moves per second
@@ -249,7 +253,7 @@ function draw() {
 	document.querySelector('#stats > #best').innerHTML = bestScore
 	document.querySelector('#stats > #generation').innerHTML = generation
 	document.querySelector('#stats > #score').innerHTML = p.score
-	document.querySelector('#stats > #lives').innerHTML = p.lives
+	document.querySelector('#stats > span#lives').innerHTML = p.lives
 	// document.querySelector('#stats > #fitness').innerHTML = p.fitness
 	document.querySelector('#stats > #population').innerHTML = pop_size
 	document.querySelector('#stats > #distances #d_to_blue').innerHTML = distances[0]

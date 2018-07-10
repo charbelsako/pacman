@@ -24,10 +24,10 @@ class Cell{
             || this.i === rows - 4 && this.j >= 3 && this.j < cols - 3
             || this.i > Math.floor(rows / 2) - 3 && this.i < Math.floor(rows/2) && this.j === Math.floor(cols / 2) 
             || this.i > Math.floor(rows / 2) && this.i <= Math.floor(rows/2) + 2 && this.j === Math.floor(cols / 2) 
-            || this.j === 11 && this.i === 8
-            || this.j === 12 && this.i === 8
-            || this.j === 11 && this.i === 12
-            || this.j === 12 && this.i === 12
+            || this.j === 9 && this.i === 6
+            || this.j === 10 && this.i === 6
+            || this.j === 9 && this.i === 10
+            || this.j === 10 && this.i === 10
             || this.i > Math.floor(rows / 2) - 3 && this.i <= Math.floor(rows/2) + 2 && this.j === Math.floor(cols / 2) + 3
          ){
             this.isWall = true
@@ -38,7 +38,8 @@ class Cell{
         this.hasCoin = (!this.isWall)? true : false
         this.special = false
 
-        if(this.i > 8 && this.i < 12 && this.j >= 10 && this.j <= 12){
+        // the middle part shouldn't have coins.
+        if(this.i > 5 && this.i < 11 && this.j >= 8 && this.j <= 10){
             this.hasCoin = false
         }
 

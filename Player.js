@@ -31,10 +31,7 @@ class Player {
     if (ghost.i === this.i && ghost.j === this.j && ghost.mode !== 'SCARED') {
       resetGame() // Each time a pacman loses you should reset everything 
       pop_size--
-      if (pop_size < 1) {
-        getBestScore(players)
-        nextGeneration()
-      }
+      getBestScore(players)
       this.lives--
       getNewPlayer()
       if (this.lives < 1) {

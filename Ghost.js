@@ -148,11 +148,11 @@ class Ghost {
             }
 
             //The pink ghost is scared of the player
-            if (this.type === 'pink' && this.pathExists && this.path.length < 4) {
-                //This ghost is broken
-                end = grid[0][cols - 1] // Go to your little corner
-                this.canKill = false // This is necessary since when a ghost has no cells left in its path array that means they killed you
-            }
+            // if (this.type === 'pink' && this.pathExists && this.path.length < 4) {
+            //     //This ghost is broken
+            //     end = grid[0][cols - 1] // Go to your little corner
+            //     this.canKill = false // This is necessary since when a ghost has no cells left in its path array that means they killed you
+            // }
             
         } else if (this.mode === 'SCARED') {
             //SCARED run away to random location on the grid.
@@ -219,11 +219,13 @@ class Ghost {
     collision(p) {
         if (this.mode !== 'SCARED' && p.i === this.i && p.j === this.j) {
             // console.log('death by collision')
-            resetGhosts()
+            resetGame()
+            getNewPlayer()
             p.lives--
             if (p.lives < 1) {
                 noLoop()
             } else {
+                // getNewPlayer()
                 p.resetPlayer()
             }
         }
@@ -238,6 +240,10 @@ class Ghost {
         } else {
             if (this.pathExists && this.mode === 'HUNTING' && this.canKill) {
                 // console.log('death by ghost reaching you')
+                resetGame()
+                getNewPlayer()
+                pop_size--
+                getBestScore(players)
                 p.lives--
                 if (p.lives < 1) {
                     console.log("Out of lives")
