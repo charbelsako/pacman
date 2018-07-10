@@ -1,4 +1,4 @@
-const TOTAL = 100 // Amount of pacmen
+const TOTAL = 500 // Amount of pacmen
 let pop_size = TOTAL
 const WIDTH = 600 //width of canvas
 const cols = 17
@@ -12,7 +12,7 @@ let bestScore = 0
 let players = new Array(TOTAL)
 for(let i = 0; i < TOTAL; i++){
 	//Making a brain
-	let pacman_brain = new NeuralNetwork(4, 4, 4)
+	let pacman_brain = new NeuralNetwork(8, 16, 4)
 	players[i] = new Player(pacman_brain)
 }
 let counter = 0 //each time a pacman dies increment this counter
@@ -29,7 +29,7 @@ let score
 let generation = 0
 
 //Inputs
-let distances = new Array(4)
+let inputs = new Array(8)
 let diagonalDistance
 
 let gameSpeed
@@ -89,7 +89,7 @@ function resetGhosts() {
 	for(let i = 0; i < ghosts.length; i++){
 		ghosts[i].resetGhost()
 	}
-	ghosts[2].resetGhost()
+	// ghosts[2].resetGhost()
 }
 
 //Resets the values of a grid that are going to be manipulated for the algorithm.
@@ -106,7 +106,7 @@ function resetValues() {
 
 function setup() {
 	createCanvas(WIDTH, WIDTH)
-	gameSpeed = createSlider(1,200, 200 , 10)
+	gameSpeed = createSlider(1,200, 1 , 10)
 	for (let i = 0; i < rows; i++) {
 		for (let j = 0; j < cols; j++) {
 			grid[i][j] = new Cell(i, j)
@@ -148,10 +148,15 @@ function draw() {
 	//All the logic
 	for(let i = 0; i < gameSpeed.value(); i++){
 		//Distance changes every single frame. Dividing by the diagonal distance to normalize values
-		distances[0] = dist(p.x, p.y, ghosts[1].x, ghosts[1].y) / diagonalDistance
-		distances[1] = dist(p.x, p.y, ghosts[0].x, ghosts[0].y) / diagonalDistance
-		distances[2] = dist(p.x, p.y, ghosts[3].x, ghosts[3].y) / diagonalDistance
-		distances[3] = dist(p.x, p.y, ghosts[2].x, ghosts[2].y) / diagonalDistance
+		inputs[0] = dist(p.x, p.y, ghosts[1].x, ghosts[1].y) / diagonalDistance
+		inputs[1] = dist(p.x, p.y, ghosts[0].x, ghosts[0].y) / diagonalDistance
+		inputs[2] = dist(p.x, p.y, ghosts[3].x, ghosts[3].y) / diagonalDistance
+		inputs[3] = dist(p.x, p.y, ghosts[2].x, ghosts[2].y) / diagonalDistance
+		//Edge conditions Yet again
+		inputs[4] = (p.j > 0)? Number(grid[p.i][p.j - 1].isWall) : 1 // Tile above
+		inputs[5] = (p.j < cols - 1)? Number(grid[p.i][p.j + 1].isWall) : 1// Tile below
+		inputs[6] = (p.i < rows - 1)? Number(grid[p.i + 1][p.j].isWall) : 1  // Tile right
+		inputs[7] = (p.i > 0)? Number(grid[p.i - 1][p.j].isWall) : 1 // Tile left 
 
 		for (let i = 0; i < rows; i++) {
 			for (let j = 0; j < cols; j++) {
@@ -159,9 +164,9 @@ function draw() {
 			}
 		}
 
-		for (let i = 0; i < ghosts.length; i++) {
-			ghosts[i].collision(p)
-		}
+		// for (let i = 0; i < ghosts.length; i++) {
+		// 	ghosts[i].collision(p)
+		// }
 
 		if (frameCount % 30 === 0) {
 			for (let i = 0; i < ghosts.length; i++) {
@@ -172,7 +177,7 @@ function draw() {
 
 		// on frame #20 this will run quite a few times
 		//Initializing the ghosts speeds
-		if (frameCount % 5 === 0) {
+		if (frameCount % 10 === 0) {
 			ghosts[0].move()
 			p.collision(ghosts[0])
 		}
@@ -195,10 +200,10 @@ function draw() {
 
 		//The Players speed. 6 moves per second
 		//In the future you will not need to move the player manually
-		// if (frameCount % 15 === 0) {
+		if (frameCount % 8 === 0) {
 		
 			//Predict the next move.
-			let result = p.brain.predict(distances)
+			let result = p.brain.predict(inputs)
 			//Find the biggest value
 			let index = 0
 			for (let i = 1; i < result.length; i++) {
@@ -233,7 +238,13 @@ function draw() {
 				p.j = cols - 1
 				p.y -= w
 			}
-		// }
+
+			p.collision(ghosts[0])
+			p.collision(ghosts[1])
+			p.collision(ghosts[2])
+			p.collision(ghosts[3])
+
+		}
 	}
 	//All the drawing
 	background(0)
@@ -256,9 +267,14 @@ function draw() {
 	document.querySelector('#stats > span#lives').innerHTML = p.lives
 	// document.querySelector('#stats > #fitness').innerHTML = p.fitness
 	document.querySelector('#stats > #population').innerHTML = pop_size
-	document.querySelector('#stats > #distances #d_to_blue').innerHTML = distances[0]
-	document.querySelector('#stats > #distances #d_to_pink').innerHTML = distances[1]
-	document.querySelector('#stats > #distances #d_to_grey').innerHTML = distances[2]
-	document.querySelector('#stats > #distances #d_to_green').innerHTML = distances[3]
+	document.querySelector('#stats > #distances #d_to_blue').innerHTML = inputs[0]
+	document.querySelector('#stats > #distances #d_to_pink').innerHTML = inputs[1]
+	document.querySelector('#stats > #distances #d_to_grey').innerHTML = inputs[2]
+	document.querySelector('#stats > #distances #d_to_green').innerHTML = inputs[3]
+
+	document.querySelector('#stats > #distances #ta').innerHTML = inputs[4]
+	document.querySelector('#stats > #distances #tb').innerHTML = inputs[5]
+	document.querySelector('#stats > #distances #tr').innerHTML = inputs[6]
+	document.querySelector('#stats > #distances #tl').innerHTML = inputs[7]
 
 }

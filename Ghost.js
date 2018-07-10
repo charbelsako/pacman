@@ -26,6 +26,7 @@ class Ghost {
 
 
     resetGhost(){
+        
         if (this.type === 'pink') {
             this.i = 0
             this.j = 0
@@ -42,6 +43,8 @@ class Ghost {
             this.i = rows - 1
             this.j = cols - 1
         }
+        this.updateLoc()
+        
     }
 
     scared() {
@@ -216,18 +219,25 @@ class Ghost {
         return
     }
 
-    collision(p) {
-        if (this.mode !== 'SCARED' && p.i === this.i && p.j === this.j) {
-            // console.log('death by collision')
-            resetGame()
-            getNewPlayer()
-            p.lives--
-            if (p.lives < 1) {
-                noLoop()
-            } else {
-                // getNewPlayer()
-                p.resetPlayer()
-            }
+    // collision(p) {
+    //     if (this.mode !== 'SCARED' && p.i === this.i && p.j === this.j) {
+    //         // console.log('death by collision')
+    //         resetGame()
+    //         getNewPlayer()
+    //         p.lives--
+    //         if (p.lives < 1) {
+    //             noLoop()
+    //         } else {
+    //             // getNewPlayer()
+    //             p.resetPlayer()
+    //         }
+    //     }
+    // }
+
+    resetGreenGhost(){
+        if(this.type == 'green'){
+            this.i = 0
+            this.j = cols - 1
         }
     }
 
@@ -239,7 +249,9 @@ class Ghost {
             this.updateLoc()
         } else {
             if (this.pathExists && this.mode === 'HUNTING' && this.canKill) {
-                // console.log('death by ghost reaching you')
+                console.log('death by ghost reaching you')
+                resetGhosts()
+                this.resetGreenGhost() // Because he doesn't want to
                 resetGame()
                 getNewPlayer()
                 pop_size--

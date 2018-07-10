@@ -29,6 +29,7 @@ class Player {
 
   collision(ghost) {
     if (ghost.i === this.i && ghost.j === this.j && ghost.mode !== 'SCARED') {
+      console.log("Player collided with ghost")
       resetGame() // Each time a pacman loses you should reset everything 
       pop_size--
       getBestScore(players)
