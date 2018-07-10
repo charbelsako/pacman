@@ -38,6 +38,14 @@ let gameSpeed
 //And sends the ghosts back to their places
 function resetGame() {
 	resetGhosts()
+	ghosts[2].resetGreenGhost()
+	for(let ghost of ghosts){
+		ghost.mode = 'IDLE'
+		setTimeout( () => {
+			// console.log("something is going to happen")
+			ghost.mode = 'HUNTING'	
+		}, 500)
+	}
 	//Refill all the non wall cells. WAIT. This is wrong
 	//Some Cells that shouldn't have coins are getting coins.
 	for (let i = 0; i < rows; i++) {
@@ -125,10 +133,10 @@ function setup() {
 	diagonalDistance = dist(0,0,width,height)
 
 	//Number of coins
-	for(let i = 0; i < rows; i++){
-		numCoins += grid[i].filter( a => !a.isWall).length
-	}
-	console.log(`max number of coins is ${numCoins}`)
+	// for(let i = 0; i < rows; i++){
+	// 	numCoins += grid[i].filter( a => !a.isWall).length
+	// }
+	// console.log(`max number of coins is ${numCoins}`)
 }
 
 
@@ -245,7 +253,9 @@ function draw() {
 			p.collision(ghosts[3])
 
 		}
+		
 	}
+	p.score++
 	//All the drawing
 	background(0)
 

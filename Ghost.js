@@ -1,5 +1,6 @@
 class Ghost {
     constructor(type) {
+        this.gameStarted = true
         this.mode = 'IDLE'
         this.pathExists = false
         this.path = []
@@ -91,7 +92,7 @@ class Ghost {
         let closedSet = []
         let openSet = []
         let start = grid[this.i][this.j]
-        let end;
+        let end = undefined
 
         this.changeMode() //Would like to change where this is .
         //if the mode is IDLE i don't even need to find the path
@@ -101,10 +102,36 @@ class Ghost {
 
         if (this.mode === 'HUNTING') {
             //Each Ghost has his own logic
-            
-            //All ghosts are assigned the player by default
-            end = grid[player.i][player.j] // HUNT the player
-            this.canKill = true
+
+            //The grey ghost targets the area around the player. Sort of.
+            if(this.type === 'grey'){
+                if(player.dir === 'UP'){
+                    if (player.i >= 2) {
+                        end = grid[player.i - 2][player.j]
+                    }
+                }else if(player.dir === 'DOWN'){
+                    if (player.i < rows - 3) {
+                        end = grid[player.i + 2][player.j]
+                    }
+                }else if(player.dir === 'LEFT'){
+                    if (player.j >= 2) {
+                        end = grid[player.i][player.j - 2]
+                    }
+                }else if(player.dir === 'RIGHT'){
+                    if (player.j < cols - 3) {
+                        end = grid[player.i][player.j + 2]
+                    }
+                }
+                if(this.i === player.i - 2 || this.i === player.i + 2 || this.j === player.j - 2 || this.j === player.j + 2){
+                    end = grid[player.i][player.j]
+                }
+            }
+
+            if(end === undefined){
+                //All ghosts are assigned the player by default
+                end = grid[player.i][player.j] // HUNT the player
+                this.canKill = true
+            }
 
             //The blue ghost targets 2 tiles in front of the player
             if (this.type === 'blue' && this.previousPath.length > 0) {
@@ -129,26 +156,7 @@ class Ghost {
 
             }
 
-            //The grey ghost targets the area around the player. Sort of.
-            if(this.type === 'grey'){
-                if(player.dir === 'UP'){
-                    if (player.i >= 2) {
-                        end = grid[player.i - 2][player.j]
-                    }
-                }else if(player.dir === 'DOWN'){
-                    if (player.i < rows - 3) {
-                        end = grid[player.i + 2][player.j]
-                    }
-                }else if(player.dir === 'LEFT'){
-                    if (player.j >= 2) {
-                        end = grid[player.i][player.j - 2]
-                    }
-                }else if(player.dir === 'RIGHT'){
-                    if (player.j < cols - 3) {
-                        end = grid[player.i][player.j + 2]
-                    }
-                }
-            }
+            
 
             //The pink ghost is scared of the player
             // if (this.type === 'pink' && this.pathExists && this.path.length < 4) {
@@ -239,6 +247,7 @@ class Ghost {
             this.i = 0
             this.j = cols - 1
         }
+        this.updateLoc()
     }
 
     move() {
@@ -247,24 +256,24 @@ class Ghost {
             this.i = nextPos.i
             this.j = nextPos.j
             this.updateLoc()
-        } else {
-            if (this.pathExists && this.mode === 'HUNTING' && this.canKill) {
-                console.log('death by ghost reaching you')
-                resetGhosts()
-                this.resetGreenGhost() // Because he doesn't want to
-                resetGame()
-                getNewPlayer()
-                pop_size--
-                getBestScore(players)
-                p.lives--
-                if (p.lives < 1) {
-                    console.log("Out of lives")
-                    noLoop()
-                } else {
-                    p.resetPlayer()
-                }
-            }
-        }
+        }// else {
+        //     if (this.pathExists && this.mode === 'HUNTING' && this.canKill) {
+        //         // console.log('death by ghost reaching you')
+        //         resetGhosts()
+        //         this.resetGreenGhost() // Because he doesn't want to
+        //         resetGame()
+        //         getNewPlayer()
+        //         pop_size--
+        //         getBestScore(players)
+        //         p.lives--
+        //         if (p.lives < 1) {
+        //             console.log("Out of lives")
+        //             noLoop()
+        //         } else {
+        //             p.resetPlayer()
+        //         }
+        //     }
+        // }
     }
 
     updateLoc() {
@@ -274,8 +283,9 @@ class Ghost {
 
     changeMode() {
         //When the game starts ghosts are IDLE for 2 seconds
-        if (this.mode === 'IDLE' && frameCount > 120) {
+        if (this.mode === 'IDLE' && frameCount > 120 && this.gameStarted) {
             this.mode = 'HUNTING'
+            this.gameStarted = false
         }
     }
 
