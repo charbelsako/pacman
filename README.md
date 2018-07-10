@@ -1,18 +1,15 @@
 # Pacman GAME AI
 
-> Disclaimer i did not make any of the files in the lib/ folder.
+> Disclaimer i did not make any of the files in the `lib/` folder.
 
-This game was primarily made just to work with algorithms and not to actually make a game.
-
-* A* pathfinding algorithm
-
-You can find information on it on wikipedia.
+This game was primarily made just to work with the a* pathfinding algorithms and not to actually make a game.
 
 ## What's missing from this game
 
-Hopefully by the time people view this repository the game would be finished.
-
-**The map will be added at the end.**
+You can't kill ghosts.
+You can't stack blue coins.
+A good programmer
+Good visual design
 
 ## What i don't like about this project
 
@@ -26,8 +23,6 @@ Which can still work if you program it right.
 
 * The pacman dies when any of the ghosts have no more items in their `path` array. This proved to be a problem. Instead you could just use the `collisison` function.
 
-## Possible updates
+## Neuro evolution update
 
-I really wish to add NeuroEvolution to this project. (WIP)
-
-I have the basic setup done (in my head).
+Added neuro evolution to the game. It's not the best impelementation but it's working. Sort of.
