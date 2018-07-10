@@ -17,19 +17,21 @@ class Cell{
 
         //Trying to make the map
         if(this.i === 1 && this.j === 1 
-            || this.i === rows - 2 && this.j === cols - 2 
-            || this.i === 1 && this.j === cols - 2 
-            || this.i === rows - 2 && this.j === 1
-            || this.i === 3 && this.j >= 3 && this.j < cols - 3
-            || this.i === rows - 4 && this.j >= 3 && this.j < cols - 3
+            || this.i === rows - 2 && this.j === cols - 2 // Corners
+            || this.i === 1 && this.j === cols - 2 // Corners
+            || this.i === rows - 2 && this.j === 1 // Corners
+            || this.i === 3 && this.j >= 3 && this.j < cols - 3 // Corners
+            || this.i === rows - 4 && this.j >= 3 && this.j < cols - 3 // Column
             || this.i > Math.floor(rows / 2) - 3 && this.i < Math.floor(rows/2) && this.j === Math.floor(cols / 2) 
             || this.i > Math.floor(rows / 2) && this.i <= Math.floor(rows/2) + 2 && this.j === Math.floor(cols / 2) 
             || this.j === 9 && this.i === 6
             || this.j === 10 && this.i === 6
             || this.j === 9 && this.i === 10
             || this.j === 10 && this.i === 10
-            || this.i > Math.floor(rows / 2) - 3 && this.i <= Math.floor(rows/2) + 2 && this.j === Math.floor(cols / 2) + 3
-         ){
+            || this.i > Math.floor(rows / 2) - 3 && this.i < Math.floor(rows/2) && this.j === Math.floor(cols / 2) + 3
+            || this.i > Math.floor(rows / 2) && this.i < Math.floor(rows/2) + 3 && this.j === Math.floor(cols / 2) + 3
+            
+        ){
             this.isWall = true
         }
 
@@ -39,9 +41,9 @@ class Cell{
         this.special = false
 
         // the middle part shouldn't have coins.
-        if(this.i > 5 && this.i < 11 && this.j >= 8 && this.j <= 10){
-            this.hasCoin = false
-        }
+        // if(this.i > 5 && this.i < 11 && this.j >= 8 && this.j <= 10){
+        //     this.hasCoin = false
+        // }
 
         if( this.i === rows - 1 && this.j === cols - 1 || this.i === 0 && this.j === 0 
             || this.i === rows - 1 && this.j === 0 || this.i === 0 && this.j === cols - 1 

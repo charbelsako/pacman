@@ -37,6 +37,7 @@ let gameSpeed
 //Resets the entire board to its original shape.
 //And sends the ghosts back to their places
 function resetGame() {
+	// console.log("Resetting the game")
 	resetGhosts()
 	ghosts[2].resetGreenGhost()
 	for(let ghost of ghosts){
@@ -44,18 +45,18 @@ function resetGame() {
 		setTimeout( () => {
 			// console.log("something is going to happen")
 			ghost.mode = 'HUNTING'	
-		}, 500)
+		}, 1500)
 	}
 	//Refill all the non wall cells. WAIT. This is wrong
 	//Some Cells that shouldn't have coins are getting coins.
 	for (let i = 0; i < rows; i++) {
 		for (let j = 0; j < cols; j++) {
 			if (!grid[i][j].isWall && !grid[i][j].hasCoin) {
-				if(grid[i][j].i > 5 && grid[i][j].i < 11 && grid[i][j].j > 7 && grid[i][j].j < 11){
-					grid[i][j].hasCoin = false
-				}else{
+				// if(grid[i][j].i > 5 && grid[i][j].i < 11 && grid[i][j].j > 7 && grid[i][j].j < 11){
+				// 	grid[i][j].hasCoin = false
+				// }else{
 					grid[i][j].hasCoin = true
-				}
+				// }
 				// The edges are special coins
 				if( grid[i][j].i === rows - 1 && grid[i][j].j === cols - 1 || grid[i][j].i === 0 && grid[i][j].j === 0 
 					|| grid[i][j].i === rows - 1 && grid[i][j].j === 0 || grid[i][j].i === 0 && grid[i][j].j === cols - 1 ){
