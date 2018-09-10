@@ -22,4 +22,4 @@ Good visual design.
 ## Neuro evolution update
 
 Added neuro evolution to the game. It's not the best impelementation but it's working. Sort of. Ok it's not working at all  
-[Link to enhancements issue](https://github.com/charbelsako/issues/28)
+[Link to enhancements issue](https://github.com/charbelsako/pacman/issues/28)
